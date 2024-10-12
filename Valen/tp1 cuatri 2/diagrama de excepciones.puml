@@ -1,0 +1,42 @@
+@startuml diagrama de excepciones
+
+title diagrama de excepciones
+
+
+exception Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception AlturaInvalidaError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception CriterioInvalidoError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception EdadInvalidaError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception NacionInvalidaError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception NombreAtletaInvalidoError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+exception PesoInvalidoError extends Error {
+    ---
+    + signal(mensajeDeError:String)
+}
+
+
+@enduml

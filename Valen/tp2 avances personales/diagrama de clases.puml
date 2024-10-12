@@ -1,0 +1,80 @@
+@startuml diagrama de clases
+
+title diagrama de clases
+
+abstract Pregunta{
+    - respuesta :Repuesta
+    - pregunta :String
+    - puntaje :Int
+    ---
+    {static}+ Pregunta(pregunta :String).
+    + responderPregunta(respuesta :String): Int
+    + retornarPuntaje(): Int
+}
+
+interface Respuesta{
+    + validarRespuesta(respuesta :String): bool
+}
+
+class VerdaderoOFalsoClasica implements Respuesta{
+    - respuesta :Bool
+    ---
+    + validarRespuesta(respuesta:String)
+}
+
+class MultipleChoise implements Respuesta{
+    - respuestas<Int>
+    ---
+    + validarRespuesta(respuesta:String)
+}
+
+class OrderedChoise implements Respuesta{
+    - respuestas<Int>
+    ---
+    + validarRespuesta(respuesta:String)
+}
+
+class GroupChoise implements Respuesta{
+    - respuestas<Int>
+    ---
+    + validarRespuesta(respuesta:String)
+}
+
+class Jugador{
+    - nombre :String
+    - puntaje :Int
+    ---
+    {static}+Jugador(nombre:String) 
+    + responderPregunta(pregunta :String): Int
+}
+
+class Turno{
+    - jugadores<Jugador>
+    - respuestas<String>
+    - turno:Int
+    ---
+    {static}+ Turno(jugadores<Jugador>)
+    + responderPreguntaPorTurno(respuesta:String)
+
+}
+
+interface Panel{
+    - pregunta :Pregunta
+    - jugadores<Jugadores>
+    ---
+    {static}+Panel()
+    + jugar()
+    + responderPregunta(respuesta:String)
+}
+
+
+
+Jugador -> Pregunta
+Respuesta --* Pregunta
+Turno *-- Pregunta
+Turno *-- Jugador
+Panel -> Turno
+
+
+
+@enduml

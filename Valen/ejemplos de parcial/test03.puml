@@ -1,0 +1,29 @@
+@startuml
+
+title constructora construye un complejo de 2 edificios y una vivienda devolviendo materiales
+
+Actor test
+
+participant "constructora:Constructora" as constructora
+participant "construccion:Construccion" as construccion
+participant "segmento:Segmento" as segmento
+participant "almacen:Almacen" as almacen
+
+
+
+test -> constructora:new constructora(1800,2000,8000)
+test -> constructora:construir(new Edificio(5))
+test -> constructora:construir(new Edificio(5))
+test -> constructora:construir(new Vivienda(5))
+activate constructora
+loop para cada construccion
+constructora -> construccion:construir(cantidadDeAmbientes/pisos)
+construccion -> segmento:construir(cantidadDeSegmentos)
+segmento -> almacen:gastar(unGasto:Gasto)
+activate constructora
+end
+test -> constructora:obtenerMateriales()
+constructora -> almacen:obtenerMateriales()
+almacen --> constructora:(0,0,0)
+
+@enduml

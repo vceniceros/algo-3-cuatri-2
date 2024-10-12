@@ -1,0 +1,53 @@
+@startuml
+
+title Diagrama de Secuencia de Registrar Rastreo del Peleador con rastreador nuevo
+
+skinparam monochrome true
+hide footbox
+
+Actor Actor
+participant "algoRastreadorZ :algoRastreadorZ" as algoRastreadorz
+participant "seleccionarRastreador: BuscarEnDiccionario" as seleccionarRastreador
+participant "rastreadorUsado :Nuevo" as rastreador
+participant "indentificarTransformacion: BuscarEnDiccionario" as indetificarTransformacion
+participant "transformacion :Transformacion" as transformacion
+
+participant "peleador :Peleador" as peleador
+participant "rastreos :Criterio" as rastreos
+
+Actor -> algoRastreadorz: conCriterioMas(:criterio)
+activate algoRastreadorz
+Actor -> algoRastreadorz: registrarPeleador(nombre:String, modelo:String,kiBase:Int, transformacion:Transformacion)
+
+algoRastreadorz -> seleccionarRastreador: buscarPorClave(modelo:String)
+activate seleccionarRastreador
+seleccionarRastreador -> rastreador:buscarPorclave(modelo:String)
+activate rastreador
+rastreador -> seleccionarRastreador:rastreador:Nuevo
+seleccionarRastreador -> algoRastreadorz:rastreador:Nuevo
+deactivate seleccionarRastreador
+
+algoRastreadorz -> indetificarTransformacion: buscarPorClave(transformacion:String)
+activate indetificarTransformacion
+indetificarTransformacion -> transformacion:buscarPorclave(transformacion:String)
+activate transformacion
+transformacion -> indetificarTransformacion:transformacion:Transformacion
+indetificarTransformacion -> algoRastreadorz:transformacion:Transformacion
+deactivate indetificarTransformacion
+
+algoRastreadorz -> rastreador: registrarRastreo(unNombre:String, unKi:Int, transformacion:Transformacion)
+rastreador -> peleador: peleador(nombre:unNombre, ki:unKi, transformacion:Transformacion)
+
+activate peleador
+peleador -> rastreador: peleador:Peleador
+deactivate transformacion
+deactivate peleador
+rastreador -> algoRastreadorz: peleador:Peleador
+deactivate rastreador
+algoRastreadorz -> rastreos: agregarLectura(peleador)
+activate rastreos
+rastreos -> algoRastreadorz: peleadoresTotales
+deactivate rastreos
+deactivate algoRastreadorz
+
+@enduml

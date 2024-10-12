@@ -1,0 +1,30 @@
+@startuml diagrama de clases BuscarEnDiccionario
+
+
+title diagrama de clases BuscarEnDiccionario
+
+
+abstract BuscarEnDiccionario{
+    -Diccionario :diccionario
+    +buscarPorClave(unaClave :string) :objeto
+}
+
+class BuscarRastreador{
+    -Diccionario :diccionario
+    +buscarPorClave(unaClave :string) :Rastreador
+}
+
+class BuscarTransformacion{
+    -Diccionario :diccionario
+    +buscarPorClave(unaClave :string) :Transformacion
+}
+
+class BuscarCriterio{
+    -Diccionario :diccionario
+    +buscarPorClave(unaClave :string) :Criterio
+}
+
+BuscarEnDiccionario <|-- BuscarCriterio
+BuscarEnDiccionario <|-- BuscarTransformacion 
+BuscarEnDiccionario <|-- BuscarRastreador
+@enduml

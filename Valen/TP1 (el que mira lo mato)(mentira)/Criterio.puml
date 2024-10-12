@@ -1,0 +1,22 @@
+@startuml diagrama de clases de Criterio
+
+title diagrama de clases de Criterio
+
+abstract Criterio {
+    - lecturas :lista 
+    + agregarLectura(unPeleador) :Peleador
+    + obtenerPeleador() :Peleador
+    + obtenerLecturaPorNombre(unNombre) :ki:Int
+}
+
+class Debil{
+    + obtenerPeleador() :Peleador
+}
+class Fuerte{
+    + obtenerPeleador() :Peleador
+}
+
+
+Criterio <|-- Debil
+Criterio <|-- Fuerte
+@enduml

@@ -1,0 +1,74 @@
+@startuml diagrama de clases AlgoRastreadorZ
+
+title diagrama de clases AlgoRastreadorZ
+
+
+class AlgoRastreadorZ{
+    - rastreos:Criterio
+    {static}+ conCriterioMas(criterio:String) 
+    + nivelDePelea(unPeleador: Peleador): ki
+    + obtenerPeleadorSegunCriterio(unCriterio: String): nombre:String
+    + registrarRastreo(unModelo: Rastreador, unNombre: String, kiBase: Int, unaTransformacion: Transformacion)
+}
+
+abstract BuscarEnDiccionario{
+    -Diccionario :diccionario
+    + BuscarRastreador(unRastreador :String) :Rastreador
+    + BuscarTransformacion(unaTransformacion :String) :Transformacion
+    + BuscarCriterio(unCriterio :String) :Criterio
+    + buscarPorClave(unaClave :string) :objeto
+}
+
+abstract Criterio{
+    - lecturas :lista 
+    + debil: Criterio
+    + fuerte: Criterio
+    + agregarLectura(unPeleador :Peleador) 
+    + obtenerPeleador() :Peleador
+    + obtenerLecturaPorNombre(unNombre :String) : ki:Int
+}
+
+abstract Rastreador{
+    - modelo: string
+    + Nuevo :Rastreador
+    + Viejo :Rastreador
+    + registrarRastreoConNombre(unNombre: String, unKi: Int, unaTransformacion: Transformacion): Peleador
+    + CalcularKi(unKi: Int) :ki
+}
+
+abstract Transformacion{
+    - multiplicador :int
+    + KiBase :Transformacion
+    + KaioKen :Transformacion
+    + MonoGigante :Tranformacion
+    + tranformarKi(unKi: Int) :ki
+}
+
+class Peleador{
+    - nombre :String
+    - kiBase :int
+    - Tranformacion :Transformacion
+    {static}+ Peleador (nombre :String, ki :int, transformacion :Transformacion) 
+    + ki() :int
+    + darNombre() :String
+}
+
+
+
+
+Criterio --o "*" Peleador
+Peleador -> "1" Transformacion
+Peleador --* Rastreador
+Rastreador -> Transformacion
+
+
+AlgoRastreadorZ *-- Criterio
+AlgoRastreadorZ *-- Rastreador
+AlgoRastreadorZ *-- BuscarEnDiccionario
+
+BuscarEnDiccionario -> "*" Transformacion
+BuscarEnDiccionario -> "*" Criterio
+BuscarEnDiccionario -> "*" Rastreador
+
+
+@enduml

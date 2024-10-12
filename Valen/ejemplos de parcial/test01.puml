@@ -1,0 +1,42 @@
+@startuml
+
+title constructora Construye Una Vivienda De 5 Ambientes y consulta cuanto material le queda
+
+Actor test
+
+participant "constructora:Constructora" as constructora
+participant "vivienda:Vivienda" as vivienda
+participant "base:Base" as base
+participant "ambiente:Ambiente" as ambiente
+participant "almacen:Almacen" as almacen
+participant "material:Gasto" as gasto
+
+test -> constructora:new constructora(200,600,2600)
+test -> constructora:construir(new vivienda(5))
+activate constructora
+constructora -> vivienda:construir(5)
+activate vivienda 
+vivienda -> base:construir(1)
+loop para cada material 
+base -> almacen:gastar(unGasto:Gasto)
+activate almacen
+almacen -> gasto:gastar(unGasto)
+end
+vivienda -> ambiente:construir(5)
+loop para cada ambiente
+loop para cada material
+ambiente -> almacen:gastar(unGasto:Gasto)
+almacen -> gasto:gastar(unGasto)
+deactivate vivienda
+end
+end
+
+
+test -> constructora:obtenerMateriales()
+constructora -> almacen:obtenerMateriales()
+loop para cada material
+almacen -> gasto:obtenerValorNumerico()
+gasto --> almacen:gasto
+end
+almacen --> constructora:(100, 100, 100)
+@enduml

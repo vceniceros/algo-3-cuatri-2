@@ -1,0 +1,78 @@
+@startuml
+
+title Diagrama de Clases
+
+
+interface Gastador {
+    + gastar(gasto: Gasto): Gasto
+}
+
+
+class Gasto implements Gastador{
+    - gasto: Int
+    ---
+    + Gasto(gasto: Int)
+    + gastar(otroGasto: Gasto): Gasto
+    + aumentar(otroGasto: Gasto): Gasto
+    + mayorIgual(otroGasto: Gasto): Gasto
+    + devolverValorNumerico(): Int
+}
+
+
+interface Gastador {
+    + gastar(gasto: Gasto): Gasto
+}
+
+interface Construir {
+    + construir()
+}
+
+abstract class Segmento implements Construir {
+    - cantCemento: Cemento
+    - cantCanerias: Canerias
+    - cantPintura: Pintura
+    ---
+    + construir()
+}
+
+
+class Almacen implements Gastador {
+    - cantMaterial<Gasto>
+    ---
+    gastar(unGasto:Gasto):Gasto
+    asignarCantidad(unGasto:Gasto)
+    obtenerMateriales():Int
+}
+
+
+class AlmacenCemento extends Almacen {
+    - cantMaterial: Gasto
+    ---
+    + gastar(unGasto: Gasto): Gasto
+    + asignarCantidad(unGasto: Gasto)
+    + obtenerMateriales(): Int
+}
+
+class AlmacenPintura extends Almacen {
+    - cantMaterial: Gasto
+    ---
+    + gastar(unGasto: Gasto): Gasto
+    + asignarCantidad(unGasto: Gasto)
+    + obtenerMateriales(): Int
+}
+
+class AlmacenCanios extends Almacen {
+    - cantMaterial: Gasto
+    ---
+    + gastar(unGasto: Gasto): Gasto
+    + asignarCantidad(unGasto: Gasto)
+    + obtenerMateriales(): Int
+}
+
+
+
+
+
+
+
+@enduml

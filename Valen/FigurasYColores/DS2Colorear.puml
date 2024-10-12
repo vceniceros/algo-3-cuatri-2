@@ -1,0 +1,22 @@
+@startuml Diagrama de Secuencia
+title Colorear un Circulo
+
+skinparam monochrome true
+hide footbox
+
+participant Actor
+participant "unCirculo:Circulo" as circulo
+participant "unPincel:Grueso" as pincel
+participant "unColor:Rojo" as color
+
+Actor -> pincel: seleccionarColor(unColor)
+activate pincel
+deactivate pincel
+Actor -> pincel: pintar(unCirculo)
+activate pincel
+    pincel -> circulo: rellenarCon(unColor)
+    activate circulo
+    deactivate circulo
+deactivate pincel
+
+@enduml

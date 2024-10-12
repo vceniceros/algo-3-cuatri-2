@@ -1,0 +1,36 @@
+@startuml diagrama de condicion
+
+title diagrama de condicion
+
+interface CalculadorDePorcentajes{
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+
+class Nacionalidad implements CalculadorDePorcentajes{
+    - condicion:Condicion
+    ---
+    + {static} nacionalidad(unaCondicion:Condicion):Nacionalidad
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+
+interface Condicion {
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+class Local implements Condicion{
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+class Limitrofe implements Condicion{
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+class Lejano implements Condicion{
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+Nacionalidad *-- Condicion
+Condicion ..|> CalculadorDePorcentajes
+@enduml

@@ -1,0 +1,61 @@
+@startuml diagrama de constructores
+
+title diagrama de constructores
+
+Actor "testDeConstruccion" as Actor	
+
+participant ":AlgoOlimpicos" as AlgoOlimpicos
+participant "SeleccionadorDeCriterio" as SeleccionadorDeCriterio
+participant ":Criterio" as Criterio
+participant ":Atleta" as Atleta
+participant ":Peso" as Peso
+participant "SeleccionadorDeEdad" as SeleccionadorDeEdad
+participant ":Plenitud" as Plenitud
+participant ":Edad" as Edad
+participant "SeleccionadorDeNacion" as SeleccionadorDeNacion
+participant ":Condicion" as Condicion
+participant ":Nacionalidad" as Nacionalidad
+
+
+create AlgoOlimpicos
+Actor -> AlgoOlimpicos: AlgoOlimpicos(criterio:String)
+activate AlgoOlimpicos
+
+    AlgoOlimpicos -> SeleccionadorDeCriterio:seleccionar('Criterio')
+    activate SeleccionadorDeCriterio
+        create Criterio
+        SeleccionadorDeCriterio -> Criterio:<Create>
+        SeleccionadorDeCriterio --> AlgoOlimpicos:Criterio
+    deactivate SeleccionadorDeCriterio
+    Actor -> AlgoOlimpicos:registrarAtleta(unNombre:String, unPeso:Int, unaAltura:Int, unaEdad:Int, nacion:String) 
+        create Atleta
+        AlgoOlimpicos -> Atleta:Atleta(unNombre:String, unPeso:Int, unaAltura:Int, unaEdad:Int, nacion:String)
+        activate Atleta
+            create Peso
+            Atleta -> Peso:Peso(unPeso:Int)
+        Atleta -> SeleccionadorDeEdad:seleccionar(unaEdad:Int, unaAltura:Int)
+            activate SeleccionadorDeEdad
+           
+            SeleccionadorDeEdad -> SeleccionadorDeEdad:Seleccionar(unaEdad:Int, unaAltura:Int)
+            create Plenitud
+            SeleccionadorDeEdad -> Plenitud:<create>
+            create Edad
+            SeleccionadorDeEdad -> Edad:Edad(plenitud:Plenitud, unaAltura:Int)
+
+            SeleccionadorDeEdad --> Atleta:Edad
+            deactivate SeleccionadorDeEdad
+        Atleta -> SeleccionadorDeNacion:seleccionar(nacion:String)
+        
+            activate SeleccionadorDeNacion
+            SeleccionadorDeNacion -> SeleccionadorDeNacion:Seleccionar(nacion:String)
+            create Condicion
+            SeleccionadorDeNacion -> Condicion:<Create>
+            create Nacionalidad
+            SeleccionadorDeNacion -> Nacionalidad:Nacionalidad(condicion:Condicion)
+
+            SeleccionadorDeNacion --> Atleta:Nacionalidad
+            deactivate SeleccionadorDeNacion
+
+        Atleta --> AlgoOlimpicos:<atletas>add(atleta)
+
+@enduml

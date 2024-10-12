@@ -1,0 +1,46 @@
+
+@startuml Diagrama de Secuencia
+title Diagrama de Secuencia: Inicializacion
+
+skinparam monochrome true
+hide footbox
+
+participant Actor
+participant ":Compas" as compas
+participant "unCirculo:Circulo" as circulo
+participant "unaCartuchera:Cartuchera" as cartuchera
+participant "unPincel:Grueso" as pincel
+participant "unColor:Rojo" as color
+
+create compas
+Actor -> compas: Compas()
+Actor -> compas: dibujarCirculoConRadio(5)
+activate compas
+    create circulo
+    compas -> circulo: ConRadio(5)
+    activate circulo
+        compas <-- circulo: unCirculo
+    deactivate circulo
+    Actor <-- compas: unCirculo
+deactivate compas
+create cartuchera
+Actor -> cartuchera: Cartuchera()
+activate cartuchera
+    create pincel
+    cartuchera -> pincel: Grueso()
+    activate pincel
+    cartuchera <-- pincel: pinceles.add(unPincel)
+    deactivate pincel
+    Actor <-- cartuchera: unaCartuchera
+deactivate cartuchera
+Actor -> cartuchera: getPincelesAt(2)
+activate cartuchera
+    Actor <-- cartuchera: unPincel
+deactivate cartuchera
+Create color
+Actor -> color: Rojo()
+activate color
+    Actor <-- color: unColor
+deactivate color
+
+@enduml

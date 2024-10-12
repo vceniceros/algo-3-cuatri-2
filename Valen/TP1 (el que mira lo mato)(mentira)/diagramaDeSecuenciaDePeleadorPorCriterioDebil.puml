@@ -1,0 +1,37 @@
+@startuml
+
+title Diagrama de Secuencia de Obtener Peleador Según Criterio Debil
+
+skinparam monochrome true
+hide footbox
+
+Actor Actor 
+participant "algoRastreadorZ :AlgoRastreadorZ" as algoRastreadorz
+participant "rastreos :Criterio" as rastreos
+participant "peleador :Peleador" as peleador
+
+Actor -> algoRastreadorz: conCriterioMas(debil:Criterio)
+
+activate algoRastreadorz
+Actor -> algoRastreadorz: obtenerPeleadorSegunCriterio
+    algoRastreadorz -> rastreos: obtenerPeleador()
+            activate rastreos
+            loop se encuentra al peleador de menor ki
+            loop se encuentra el menor ki
+            activate peleador
+
+            rastreos --> peleador: ki()
+
+            peleador --> rastreos: menorKi:Int
+                
+            End
+            rastreos --> peleador: menorKi = ki()
+
+            peleador --> rastreos: peleadorHallado:Peleador
+            deactivate peleador        
+            End
+            algoRastreadorz <-- rastreos: peleadorMasDebil:String
+            Actor <-- rastreos: peleadorMasDebil:String
+            deactivate rastreos          
+
+@enduml

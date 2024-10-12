@@ -1,0 +1,47 @@
+@startuml
+actor "administrador" as admin
+actor "usuario" as user
+
+==un administrador registra los vehiculos disponibles==
+
+
+admin -> "agenciaVehiculos:Agencia" as agencia ** :Agencia()
+note left: "un admin puede registrar todos los vehiculos\n que estaran disponibles para alquilar"
+loop for each vehiculo
+
+admin -> agencia : registrarVehiculo(unVehiculo:Vehiculo)
+
+
+agencia -> agencia : this.vehiculos.add(unVehiculo)
+end
+
+====
+
+user -> agencia : registrarCliente(cliente)
+
+user -> agencia : registrarAlquiler(cliente, vehiculo, dias)
+
+agencia -> agencia : buscarCliente(cliente)
+agencia -> agencia : buscarVehiculo(vehiculo)
+agencia -> "cliente:Cliente" as cliente : registrarAlquiler(vehiculo, dias)
+cliente -> "alquiler:Alquiler" as alquiler ** : Alquiler(vehiculo, dias)
+alquiler --> cliente : unAlquiler
+cliente -> cliente : add(unAlquiler)
+
+user -> agencia : calcularAlquilerParaCliente(cliente)
+agencia -> cliente : calcularPrecioAlquiler()
+loop for each alquiler
+cliente -> alquiler : calcularPrecio()
+alquiler -> "cochePremiumBlindado:Coche" as vehiculo : alquilarPorDias()
+vehiculo -> "categoria:CategoriaPremium" as categoria : precioPlazas(plazas)
+categoria --> vehiculo : precio
+vehiculo --> "blindaje:Blindado" as b : modificarPrecio(precio)
+b --> vehiculo : precioModificado
+vehiculo --> cliente : precioModificado
+cliente -> cliente : precioTotal += precioModificado
+
+end
+cliente --> agencia : precioTotal
+
+agencia --> user : precioAlquiler
+@enduml

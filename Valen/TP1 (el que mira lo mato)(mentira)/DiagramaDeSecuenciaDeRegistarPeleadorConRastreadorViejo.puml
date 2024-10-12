@@ -1,0 +1,58 @@
+@startuml
+
+title Diagrama de Secuencia de Registrar Rastreo del Peleador con rastreador viejo
+
+skinparam monochrome true
+hide footbox
+
+Actor Actor
+participant "algoRastreadorZ :algoRastreadorZ" as algoRastreadorz
+participant "seleccionarRastreador: BuscarEnDiccionario" as seleccionarRastreador
+participant "rastreadorUsado :Viejo" as rastreador
+participant "indentificarTransformacion: BuscarEnDiccionario" as indetificarTransformacion
+participant "transformacion :Transformacion" as transformacion
+
+participant "peleador :Peleador" as peleador
+participant "rastreos :Criterio" as rastreos
+
+Actor -> algoRastreadorz: conCriterioMas(:criterio)
+activate algoRastreadorz
+Actor -> algoRastreadorz: registrarPeleador(nombre:String, modelo:String,kiBase:Int, transformacion:Transformacion)
+
+algoRastreadorz -> seleccionarRastreador: buscarPorClave(modelo:String)
+activate seleccionarRastreador
+seleccionarRastreador -> rastreador:buscarPorclave(modelo:String)
+activate rastreador
+rastreador -> seleccionarRastreador:rastreador:Viejo
+seleccionarRastreador -> algoRastreadorz:rastreador:Viejo
+deactivate seleccionarRastreador
+
+algoRastreadorz -> indetificarTransformacion: buscarPorClave(transformacion:String)
+activate indetificarTransformacion
+indetificarTransformacion -> transformacion:buscarPorclave(transformacion:String)
+activate transformacion
+transformacion -> indetificarTransformacion:transformacion:Transformacion
+indetificarTransformacion -> algoRastreadorz:transformacion:Transformacion
+deactivate indetificarTransformacion
+
+algoRastreadorz -> rastreador: registrarRastreo(unNombre:String, unKi:Int, transformacion:Transformacion)
+rastreador -> transformacion: transformarKi(unKi:int)
+transformacion -> rastreador: kiTransformado:Int
+deactivate transformacion
+rastreador -> rastreador: calcularKi(kiTransformado)
+alt kiTransformado >= 9000
+    rastreador -> rastreador: kiRegistrado:Int = 9000
+else 
+    rastreador -> rastreador: kiRegistrado:Int
+end
+rastreador -> peleador: peleador(nombre:unNombre, ki:kiRegistrado, transformacion:Base)
+peleador -> rastreador: peleador:Peleador
+rastreador -> algoRastreadorz: peleador:Peleador
+deactivate rastreador
+algoRastreadorz -> rastreos: agregarLectura(peleador)
+activate rastreos
+rastreos -> algoRastreadorz: peleadoresTotales
+deactivate rastreos
+deactivate algoRastreadorz
+@enduml
+

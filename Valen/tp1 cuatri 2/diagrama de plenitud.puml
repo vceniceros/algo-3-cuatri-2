@@ -1,0 +1,39 @@
+@startuml diagrama de plenitud
+
+title diagrama de plenitud
+
+
+interface CalculadorDePorcentajes{
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+class Edad implements CalculadorDePorcentajes{
+    - plenitud:Plenitud
+    ---
+    + {static} Edad(plenitud:Plenitud, altura: Int):Edad
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+Abstract Class Plenitud implements CalculadorDePorcentajes{
+    # altura:Int
+    ---
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+ 
+Class Joven extends Plenitud{
+    # altura:Int
+    ---
+    + {static} Joven(Altura:Int):Joven
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+Class Veterano extends Plenitud{
+    # altura:Int
+    ---
+    + {static} Veterano(Altura:Int):Veterano
+    + calcularPorcentaje(unPeso:Peso):Peso
+}
+
+Edad *-- Plenitud
+
+@enduml

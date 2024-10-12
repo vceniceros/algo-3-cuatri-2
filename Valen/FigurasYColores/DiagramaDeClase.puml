@@ -1,0 +1,71 @@
+@startuml Diagrama de Clases
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+title Diagrama de clases
+
+class Compas {
+    +dibujarCirculoConRadio(radio :int): Circulo
+}
+
+class Cartuchera {
+    +getPinceles(): OrderedCollection<Pincel>
+}
+
+abstract class Pincel {
+    +pintar(unaFigura: Figura): Figura
+    +seleccionarColor(unColor: Color)
+}
+
+class Fino {
+    +pintar(unaFigura: Figura): Figura
+}
+
+class Grueso {
+    +pintar(unaFigura: Figura): Figura
+}
+
+abstract class Figura {
+    -contorno: Color
+    -relleno: Color
+    +calcularSuperficie(): Float
+    +contornoDe(unColor: Color)
+    +rellenarCon(unColor: Color) 
+}
+
+class Circulo {
+    -radio: int
+    {static} +ConRadio(unRadio: int): Circulo
+    +calcularSuperficie(): Float
+    +contornoDe(unColor: Color)
+    +rellenarCon(unColor: Color) 
+}
+
+interface Color {
+
+}
+
+class Rojo {
+
+}
+
+Pincel <<Abstract>>
+Figura <<Abstract>>
+Color <<Interface>>
+
+Cartuchera o--> Pincel
+Pincel <|-- Fino
+Pincel <|-- Grueso
+
+Pincel --> Color
+
+Compas ..> Figura
+Figura <|-- Circulo
+Figura --> Color
+Figura <.right.. Pincel
+
+Color <|.. Rojo
+
+@enduml

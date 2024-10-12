@@ -1,0 +1,28 @@
+@startuml
+title Diagrama de Secuencia de Nivel de Pelea de un Peleador
+
+skinparam monochrome true
+hide footbox
+Actor Actor
+participant "algoRastreadorZ :algoRastreadorZ" as algoRastreadorz
+participant "rastreos :Criterio" as rastreos
+participant "Peleador :Peleador" as Peleador
+
+Actor -> algoRastreadorz: nivelDePeleaDe(:unPeleador)
+
+activate algoRastreadorz
+    create rastreos
+    algoRastreadorz -> rastreos: obtenerLecturaPorNombre(:unPeleador)
+    activate rastreos
+        loop se encuentra el nombre del Peleador
+        activate Peleador
+        rastreos -> Peleador: verSiExistePeleador(nombreDelPeleador)        
+        Peleador -> rastreos: ki():Int
+        deactivate Peleador
+        end
+         algoRastreadorz <- rastreos: ki:Int
+    Actor <- algoRastreadorz: kiRegistrado:int
+    deactivate rastreos
+deactivate algoRastreadorz
+
+@enduml

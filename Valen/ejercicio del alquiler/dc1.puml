@@ -1,0 +1,104 @@
+@startuml
+class Agencia {
+{static}+Agencia()
++registrarVehiculo(Vehiculo unVehiculo)
++registrarCliente(Cliente unCliente)
++calcularAlquilerParaCliente(Cliente unCliente): double
++registrarAlquiler(Cliente unCliente, Vehiculo unVehiculo, int dias)
+-buscarVehiculo(Vehiculo unVehiculo): Vehiculo
+-buscarCliente(Cliente unCliente): Cliente
++calcularAlquilerTotal(): Double
+}
+
+
+class Alquiler {
+{static}+Alquiler(Vehiculo vehiculo, int dias)
+-dias
++calcularPrecio()
+}
+
+class Blindado { 
+{static}+Blindado(String patente)
++modificarPrecio(int precio): Double
+}
+interface Blindaje {
++modificarPrecio(int precio): Double 
+}
+
+class Camion {
+{static}+Camion(String patente)
++alquilerPorDias(int dias): Double
+}
+
+interface Categoria {
++precioPlazas(int plazas): int
+}
+class CategoriaNormal {
++{static}CategoriaNormal()
++precioPlazas(int plazas): int
+}
+class CategoriaPremium{
++{static}CategoriaPremium()
++precioPlazas(int plazas): int
+}
+class Cliente {
+-String nombre
+{static}+Cliente(String nombre)
++registrarAlquiler(Vehiculo vehiculo, int dias)
++calcularPrecioAlquileres(): Double
++esIgualA(Cliente cliente): boolean
+-tieneNombre(String unNombre): boolean
+}
+
+
+
+
+class Coche {
+-int plazas
++{static}Coche(String patente, int plazas, Categoria categoria, Blindaje blindaje)
++alquilarPorDias(int dias): Double
+}
+class Furgoneta{
++{static}Furgoneta(String patente, double pma)
++alquilarPorDias(int dias): Double
+}
+class Microbus {
++{static}Microbus(String patente)
++alquilarPorDias(int dias): Double
+}
+
+class SinBlindaje{
++{static}SinBlindaje
++modificarPrecio(int precio): Double 
+}
+abstract Vehiculo {
++{static}Vehiculo(String patente)
++{abstract}alquierPorDias(int dias): Double
++esIgualA(Vehiculo unVehiculo): boolean
++tieneMismaPatente(String patente): boolean
+}
+
+
+
+Agencia "1" o-- "*" Vehiculo
+Agencia "1" o-- "*" Cliente
+
+Alquiler "1" o-left--- "1" Vehiculo
+
+Blindado .up.|> Blindaje
+SinBlindaje .up.|> Blindaje
+
+
+CategoriaNormal .up.|> Categoria
+CategoriaPremium .up.|> Categoria
+
+Cliente "1" *-- "*" Alquiler
+
+Coche -up-|> Vehiculo
+Furgoneta -up-|> Vehiculo
+Microbus -up-|> Vehiculo
+Camion -up-|> Vehiculo
+
+Coche "1" o-- "1" Categoria
+Coche "1" o-- "1" Blindaje
+@enduml

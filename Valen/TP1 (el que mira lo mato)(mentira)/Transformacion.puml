@@ -1,0 +1,34 @@
+@startuml diagrama de clases Transformacion
+
+title diagrama de clases Transformacion
+
+abstract Transformacion {
+    - nombre :string
+    - multiplicador :int
+    + transformarKi(unKI: ki): int
+}
+
+class Base{
+    - nombre :string
+    - multiplicador :int
+    + transformarKi(unKI: ki): int
+}
+
+class KaioKen{
+    - nombre :string
+    - multiplicador :int
+    + transformarKi(unKI: ki): int
+
+} 
+
+class MonoGigante{
+    - nombre :string
+    - multiplicador :int
+    + transformarKi(unKI: ki): int
+}
+
+Transformacion <|-- Base
+Transformacion <|-- KaioKen
+Transformacion <|-- MonoGigante
+
+@enduml

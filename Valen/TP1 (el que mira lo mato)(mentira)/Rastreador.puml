@@ -1,0 +1,23 @@
+@startuml diagrama de clases Rastreador
+
+title diagrama de clases Rastreador
+
+abstract Rastreador{
+    - modelo: string
+    + CalcularKi(unKi: ki) :ki
+    + registrarRastreoConNombre(unNombre: String, unKi: Int, unaTransformacion: Transformacion): Peleador
+}
+
+Class Viejo{
+    + registrarRastreoConNombre(unNombre: String, unKi: Int, unaTransformacion: Transformacion): Peleador
+    + CalcularKi(unKi: ki) :ki
+}
+
+class Nuevo{
+    + registrarRastreoConNombre(unNombre: String, unKi: Int, unaTransformacion: Transformacion): Peleador
+    + CalcularKi(unKi: ki) :ki
+}
+
+Rastreador <|-- Viejo
+Rastreador <|-- Nuevo
+@enduml

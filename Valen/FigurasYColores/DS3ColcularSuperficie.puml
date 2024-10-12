@@ -1,0 +1,11 @@
+@startuml Diagrama de Secuencia
+title Diagrama de Secuencia: Calcular Superficie
+
+skinparam monochrome true
+hide footbox
+
+Actor -> circulo: calcularSuperficie()
+activate circulo
+    Actor <-- circulo: pi * 5^2
+deactivate circulo
+@enduml

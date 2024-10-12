@@ -1,0 +1,77 @@
+@startuml diagrama de secuencia del test 03
+title diagrama de secuencia del test 03
+
+Actor "test03UnAtletaFrancesConCiertoPesoYEdadPuedeLevantarCiertosKilos" as Actor	
+
+participant ":AlgoOlimpicos" as AlgoOlimpicos
+participant ":Atleta" as Atleta
+participant ":Nacionalidad" as Nacionalidad
+participant ":Local" as Local
+participant ":Edad" as Edad
+participant ":Joven" as Joven
+participant ":Peso" as Peso
+
+
+participant "pesoMaximo:Peso" as PesoMaximo
+
+create AlgoOlimpicos
+Actor -> AlgoOlimpicos: AlgoOlimpicos('Fuerte')
+activate AlgoOlimpicos
+
+Actor -> AlgoOlimpicos: AlgoOlimpicos('Romain Imadouchene', 96 , 1.83, 28,'Francia'.)
+    
+    create Atleta
+    AlgoOlimpicos -> Atleta:Atleta('Romain Imadouchene', 96 , 1.83, 28,'Francia'.)
+    AlgoOlimpicos -> AlgoOlimpicos:Atletas.add:(:Atleta)
+
+    Actor -> AlgoOlimpicos:pesoMaximoDe('Romain Imadouchene')
+
+        AlgoOlimpicos -> AlgoOlimpicos:pesoMaximoDe('Romain Imadouchene')
+            loop para cada atleta
+            AlgoOlimpicos -> Atleta:compararNombre('Romain Imadouchene')
+            activate Atleta
+            Atleta --> AlgoOlimpicos:Atleta
+            end loop
+        
+        AlgoOlimpicos -> Atleta:calcularPesoMaximo()
+            
+            Atleta -> Nacionalidad:calcularPorcentaje(:peso)
+                activate Nacionalidad
+                Nacionalidad -> Local:calcularPorcentaje(:peso)
+                    activate Local
+                    Local -> Peso:multiplicarPor(1.10)
+                    activate Peso
+                    deactivate Local
+                deactivate Nacionalidad
+            
+            Atleta -> Edad:calcularPorcentaje(:Peso)
+                activate Edad
+                Edad -> Joven:calcularPorcentaje(:Peso)
+                    activate Joven
+                    Joven -> Peso:multiplicarPor(1.83 * 0.83)
+                    deactivate Joven
+                   
+                deactivate Edad
+        create PesoMaximo
+        Peso --> PesoMaximo:<create>
+        deactivate Peso
+        activate PesoMaximo
+        PesoMaximo --> Atleta:pesoMaximo
+        Atleta --> AlgoOlimpicos:pesoMaximo
+        AlgoOlimpicos --> Actor:pesoMaximo
+    Actor -> PesoMaximo:compararConPreciosion(182.268, 1e-3)
+    PesoMaximo --> Actor:True
+    deactivate PesoMaximo
+
+
+
+
+
+
+
+        
+
+
+
+
+@enduml

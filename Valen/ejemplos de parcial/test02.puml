@@ -1,0 +1,50 @@
+@startuml
+
+title constructora Construye Un eidificio de 5 pisos y consulta cuanto material le queda
+
+Actor test
+
+participant "constructora:Constructora" as constructora
+participant "edificio:edificio" as edificio
+participant "base:Base" as base
+participant "pb:PlantaBaja" as pb
+participant "vivienda:Vivienda" as vivienda
+participant "piso:Piso" as piso
+participant "almacen:Almacen" as almacen
+participant "material:Gasto" as gasto
+
+test -> constructora:new constructora(800,700,2700)
+test -> constructora:construir(new edificio(5))
+activate constructora
+constructora -> edificio:construir(5)
+activate edificio 
+edificio -> base:construir(1)
+loop para cada material 
+base -> almacen:gastar(unGasto:Gasto)
+almacen -> gasto:gastar(unGasto)
+activate almacen
+
+end
+edificio -> pb:construir(1)
+pb->vivienda:construir(5)
+loop para cada material
+vivienda -> almacen:gastar(unGasto:Gasto)
+almacen -> gasto:gastar(unGasto)
+end
+edificio -> piso:construir(5)
+loop para cada piso
+loop para cada material
+piso -> almacen:gastar(unGasto:Gasto)
+almacen -> gasto:gastar(unGasto)
+deactivate edificio
+end
+end
+
+test -> constructora:obtenerMateriales()
+constructora -> almacen:obtenerMateriales()
+loop para cada material
+almacen -> gasto:obtenerValorNumerico()
+gasto --> almacen:gasto
+end
+almacen --> constructora:(100, 100, 100)
+@enduml

@@ -1,0 +1,30 @@
+@startuml diagrama de Criterio
+
+title diagrama de plenitud
+
+class AlgoOlimpicos{
+    - atletas<Atleta>
+    - criterio: Criterio 
+    ---
+    + {static} algoOlimpicos(criterio:String):AlgoOlimpicos
+    + obtenerAtletaSegunCriterio():String
+    + registrarAtleta(nombre:String, peso:Int, altura:Float, edad:Int,nacionalidad:String)
+    + pesoMaximoDe(nombre:String):Peso  
+}
+
+Abstract Class Criterio{
+    + obtenerAtletaPorCriterio(atletas<Atleta>):Atleta
+}
+
+Class Fuerte implements Criterio{
+    + obtenerAtletaPorCriterio(atletas<Atleta>):Atleta
+}
+
+Class Debil implements Criterio{
+    + obtenerAtletaPorCriterio(atletas<Atleta>):Atleta
+}
+
+
+AlgoOlimpicos *-- Criterio
+
+@enduml

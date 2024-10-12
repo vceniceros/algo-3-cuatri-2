@@ -1,0 +1,33 @@
+@startuml  diagrama 1
+
+title Una Pregunta de Verdadero/Falso clásico recibe una lista de respuestas y asigna correctamente puntos a los jugadores que respondieron correctamente (asumiendo que ya esta cargada la lista de jugadores)
+
+Actor "grupito de players/test/qsy" as actor
+Participant "panel: Panel" as panel
+Participant "turno: Turno" as turno
+participant "jugador: Jugador" as jugador
+participant "pregunta: Pregunta" as pregunta
+participant "respuesta:  VerdaderoOFalsoClasica" as  respuesta
+
+actor -> panel:Panel() new
+activate panel
+
+actor -> panel: jugar()
+panel -> turno: Turno(jugadores<Jugador>)
+activate turno
+loop mientras no halla contestado el ultimo jugador
+actor -> panel: responderPregunta(respuesta:String)
+panel -> turno: responderPregunta(respuesta)
+turno -> jugador: responderPregunta(respuesta)
+activate jugador
+jugador -> pregunta:responderPregunta(respuesta)
+activate pregunta
+pregunta -> respuesta:validarRespuesta(respuesta :String)
+activate respuesta
+respuesta -> pregunta: respuesta:True
+pregunta -> jugador: retornarPuntaje():Int == puntaje
+jugador -> turno: jugadores: Puntaje += pregunta retornarPuntaje() :Int
+end 
+
+
+@enduml

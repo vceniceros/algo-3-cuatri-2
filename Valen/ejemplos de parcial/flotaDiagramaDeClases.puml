@@ -1,0 +1,54 @@
+@startuml diagrama de clases  de flota
+
+title diagrama de clases
+
+interface Atacable{
+    + recibirAtaque(puntaje :Puntaje)
+}
+
+interface Atacante{
+    + atacar(nave :Nave)
+}
+
+class Puntaje{
+    - valor:Int
+    ---
+    + {static} Puntaje(valor:Int):Puntaje
+    + sumarCon(otroPuntaje: Puntaje): Puntaje
+    + descontar(otroPuntaje: Puntaje): Puntaje
+    + menorIgualQue(otroPuntaje: Puntaje): Boolean
+    + valorNumerico():Int
+}
+
+interface Puntuable{
+    +  calcularPuntaje():Puntaje
+}
+
+abstract SistemaDeAtaque implements Puntuable, Atacante{
+    + atacar(nave :Nave)
+    +  calcularPuntaje():Puntaje
+}
+
+class Misil implements Puntuable{
+    + calcularPuntaje():5
+}
+
+class BombaDeNeutrones implements Puntable{
+    + calcularPuntaje():10
+}
+
+class Misilera implements Puntuable, Atacante{
+    - misiles<Misil>
+    - capacidad:Int
+    ---
+    + misilera(capacidad :Int):Misilera
+    + llena():Boolean
+    + calcularPuntaje():Puntaje 
+    + atacar(nave :Nave)
+}
+
+
+
+
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml diagrama de secuencia del test 06
+
+title diagrama de secuencia del test 06
+
+Actor "test06EntreVariosAtletasDetectoAlMasFuerte" as Actor	
+
+participant ":AlgoOlimpicos" as AlgoOlimpicos
+
+participant ":Fuerte" as Fuerte
+participant "atletaMasFuerte:Atleta" as Atleta
+participant "otrosAtletas:Atleta" as OtrosAtletas
+
+
+
+create AlgoOlimpicos
+Actor -> AlgoOlimpicos:criterioMas('Fuerte')
+    activate AlgoOlimpicos
+    create Fuerte
+    AlgoOlimpicos -> Fuerte:<create>
+    create Atleta
+    AlgoOlimpicos -> Atleta: Atleta('Lasha Talakhadze', 150, 1.97, 30, 'Georgia')
+    AlgoOlimpicos -> AlgoOlimpicos: atletas.add(atletaMasFuerte:Atleta)
+
+    loop para cada atleta que no sea el esperado
+    create OtrosAtletas
+    AlgoOlimpicos -> OtrosAtletas: Atleta(nombre, peso, altura, edad, nacionalidad)
+    AlgoOlimpicos -> AlgoOlimpicos: atletas.add(otrosAtletas:Atleta)
+    end loop
+
+    Actor -> AlgoOlimpicos:obtenerAtletaSegunCriterio()
+
+    AlgoOlimpicos -> Fuerte:obtenerAtletaPorCriterio(atletas)
+        activate Fuerte
+        loop para cada atleta
+        Fuerte -> Atleta:calcularPesoMaximo()
+        activate Atleta        
+        Fuerte -> OtrosAtletas:calcularPesoMaximo()
+        activate OtrosAtletas
+        
+        Fuerte -> Fuerte:detectMax(calcularPesoMaximo())
+    
+        deactivate OtrosAtletas
+        end loop
+ 
+        Fuerte --> AlgoOlimpicos:atletaMasFuerte:Atleta
+
+    AlgoOlimpicos -> Atleta:darNombre()
+    Atleta --> AlgoOlimpicos:'Lasha Talakhadze'
+    AlgoOlimpicos --> Actor:'Lasha Talakhadze'
+    
+
+
+
+
+
+@enduml
