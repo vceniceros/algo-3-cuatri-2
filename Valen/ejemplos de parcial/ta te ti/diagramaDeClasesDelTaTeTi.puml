@@ -1,0 +1,93 @@
+@startuml diagrama de clases
+
+
+interface AsignadorDeSimbolo{
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+}
+
+
+class Celda implements AsignadorDeSimbolo{
+    - fila:Int
+    - columna:Int
+    ---
+    + {static} Celda(fila:Int, columna:Int):Celda
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+ 
+}
+
+class LineaDe3 implements AsignadorDeSimbolo{
+    - celdas<Celda>
+    - celdasOcupadas<Celda>
+    ---
+    + {static} LineaDe3(celda1:Celda, celda2:Celda, celda3:Celda):LineaDe3
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+    + lineaCompleta():Bool
+}
+
+class Tablero implements AsignadorDeSimbolo{
+    - lineasDeVictoria<lineasDe3>
+    ---
+    + {static} Tablero():Tablero
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+}
+
+
+abstract Jugador implements AsignadorDeSimbolo{
+    - simbolo:Simbolo
+    ---
+    + {static} Jugador(simbolo:Simbolo)
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+}
+
+class JugadorHumano extends Jugador{
+    - simbolo:Simbolo
+    ---
+    + {static} Jugador(simbolo:Simbolo)
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+}
+class JugadorComputadora extends Jugador{
+    - simbolo:Simbolo
+    ---
+    + {static} Jugador(simbolo:Simbolo)
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+    + defender();
+    + buscarLaLineaDe3();
+    + elegirEstrategia();
+}
+
+abstract Simbolo{
+    --- 
+    +{static}Simbolo()
+    + compararConOtroSimbolo(simbolo:Simbolo):Bool
+}
+
+class Cruz extends Simbolo{
+    --- 
+    +{static}Simbolo()
+    + compararConOtroSimbolo(simbolo:Simbolo):Bool
+
+}
+
+class Circulo extends Simbolo{
+    --- 
+    +{static}Simbolo()
+    + compararConOtroSimbolo(simbolo:Simbolo):Bool   
+}
+
+class Juego implements AsignadorDeSimbolo{
+    - tablero:Tablero
+    ---
+    + {static}Juego(simbolo:String):Juego
+    + jugarTurno(fila:Int, columna:Int)
+    + asignarSimbolo(fila:Int, columna:Int, simbolo:Simbolo):Bool
+}
+
+Juego o-down- Jugador
+Jugador o-down- Simbolo
+Juego *-left- Tablero
+Tablero *-down- LineaDe3
+LineaDe3 *-down- Celda
+
+Celda --> Simbolo
+Jugador --> Celda
+@enduml
