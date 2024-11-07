@@ -1,0 +1,20 @@
+@startuml diagrama de balatro
+
+title diagrama de clases
+
+abstract carta{
+    - puntaje:Puntaje
+    - valor:Int
+    ---
+    + compararCon(carta:Carta):bool
+    + compararValor(carta:Carta):bool
+    + calcularPuntaje(valor:Int):Puntaje
+    + aplicarTarot(tarot:Tarot)
+}
+
+class jugador{
+    - puntosTotales:Puntaje
+
+}
+
+@enduml
