@@ -3,18 +3,42 @@
 title diagrama de clases
 
 abstract carta{
-    - puntaje:Puntaje
     - valor:Int
+    - multiplicador:Int 
     ---
     + compararCon(carta:Carta):bool
     + compararValor(carta:Carta):bool
-    + calcularPuntaje(valor:Int):Puntaje
+    + calcularPuntaje():Puntaje
     + aplicarTarot(tarot:Tarot)
+}
+
+class Puntaje{
+    - multiplicador: Int
+    ---
+    +{static} Puntaje(multiplicador:int):Puntaje
+    +comparar
+}
+
+
+abstract Tarot implements Modificable{
+    + m0odificar(unValor:int):Int
+}
+
+class tarotDeValor extends Tarot{
+    + modificar(unValor:int):Int
+}
+
+class tarotDeMultiplicador extends Tarot{
+    + modificar(unValor:int):Int
+}
+
+interface Modificable{
+    + modificar(unValor:int):Int
 }
 
 class jugador{
     - puntosTotales:Puntaje
-
+    
 }
 
 @enduml
