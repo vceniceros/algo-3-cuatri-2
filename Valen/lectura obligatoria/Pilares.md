@@ -18,7 +18,7 @@ En definitiva, el encapsulamiento consiste en darle a una clase ciertas responsa
 
 ## Abstracción
 
-Consiste en crear clases abstractas, cuyos métodos y comportamientos no pueden ser instanciados directamente, sino que se aplican a otras clases mediante interfaces y/o herencia. A nivel práctico, a nivel teórico se refiere a la capacidad de ignorar detalles de implementación de una clase basándose en sus comportamientos. Es decir, se centra en qué hace un objeto sin preocuparse por cómo lo hace, simplificando los modelos al enfocarse en lo que es relevante desde la perspectiva del usuario o programador.
+Es la manera en la se conectan el dominio del problema con el dominio de la solucion, nosotros adaptamos objetos de la vida real en antributos y comportamientos en nuestro codigo donde la abstraccion viene a ser los elementos y comportamientos de la vida real que nosotros concideramos necesarios en nuestro modelo, la abstraccion es un modelo de un objeto o fenomeno de la vida real limitado en un contexto especifico, representando todo lo que nosotros concideramos importante para nuestra implementacion
 
 ## Herencia
 

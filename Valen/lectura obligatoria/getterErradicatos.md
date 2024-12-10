@@ -11,5 +11,3 @@ tampoco es que nunca se deban usar getters pero uno siempre tiene que preguntars
 siempre hay que estar atento especialmente si una clase tiene como unico proposito guardar datos, muy seguramente esa clase tenga un problema de getterErradicator
 
 por ultimo siempre siempre que veas un getter hacete la pregunta **"puedo desarseme del getter"**  
-
-self subclassResponsability

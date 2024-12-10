@@ -141,3 +141,124 @@ las funciones puras son faciles de probar de forma aislada lo que mejora la cali
 ### 5. reutilizacion de codigo
 
 las funciones de orden superior y la compocicion permiten crear bloques reutilizables
+
+## Caracteristicas
+
+### composición
+
+
+funciones que tomas otras funciones como argumento o las devuelven como resultado, permiten componer funciones
+
+```
+añadir = x = x + y
+multiplicar = x = x * y
+
+
+componer = (f,g)
+
+añadirYMultiplicar = compose(multiplicar(x), añadir(x)) 
+
+```
+
+### lazy evaluation
+
+las expresiones no se evaluan hasta que su valor es necesesario
+
+```
+
+lazySum = (a, b) => a + b
+result = lazySum(a, b) // no se evalua todavia
+result() -> ahora si se obtiene el resultado
+
+```
+
+### monadas y efectos secundarios, promesas como monada
+
+Una estructura que ayuda a manejar efectos secundarios mantiendo el codigo funcional, las promesas se usan para que en caso de depender de algo externo pueda ser manejado el caso de error 
+
+Monadas: es el patron de los lenguajes funcionales para  manejar errores
+
+```
+fetchData = (url) -> fetch(url).then(response -> json).then(hace algo).catch(error)
+
+fetchData(url deseada)
+```
+
+### currying
+
+es el proceso de transformar una funcion que toma multiples argumentos en una secuencia de funciones que toman un solo argumento a la vez, permite crear funciones mas especificas y reutilizables aplicando parcialmente argumentos
+
+```
+multiplicar = (a,b) => a * b
+curriedMUltiply = (a) => (b) = a * b
+curriedMultiplyBy10 = curriedMultiply(10)
+
+curriedMultiplay(5)(10)
+curriedMultiplyBy10(5)
+
+// son lo mismo
+```
+
+### Pattern matching
+
+Es una tactica utilizada para descomponer estructuras de datos y realizar oprercaciones condicionales de manera mas declarativa y legible es comun en lenguajes funcionales como elixir y scala, se usa parcialmente en js
+
+```
+Match  = (value, pattern) =>
+(pattern[valor] || pattern.default || (() => "no match"))
+
+result = match("b")
+```
+
+#### ventajas de pattern match
+
+- reduce la necesidad de condicionales anidados
+
+- descompocision de dato
+
+- mantenimiento simplificado
+
+es como un switch... pero copado
+
+
+```
+handleResponse = (response) => {
+    const {status, data, error} = response;
+
+    return match(status, {
+        200: () => 'exito: ${json.stringlyfy(data)},
+        404: () => 'error no encontrado',
+        500: () => 'internal server error',
+        default: () => 'error desconocido',
+    })
+}
+
+response = {status: 200, data: { id: 1, name:'Pablo'}}
+console.log(handleResponse(response));
+
+```
+
+## pipeline funcional
+
+```
+pipeline = (...fns) => (input) => fns.reduce((acc, fn) => fn(acc), input)
+
+toUpperCase = (str) => str.toUpperCase();
+splitBySpaces = (str) => str.split(' ')
+filterShrtWords = (arr) => arr.fliter((word) => word.lenght > 3)
+
+processText = pipeline(toUpperCase, splitBySpaces, filterShortWords);
+
+processText('aca iria un texto')
+
+```
+
+## conceptos claves
+
+1. estados inmutables
+2. componible
+3. predecible
+4. unica tarea
+5. puras
+6. valor De Retorno
+7. sin estado compartido
