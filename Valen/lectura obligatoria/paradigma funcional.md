@@ -38,7 +38,7 @@ el auge de los sistemas concurrentes, big data y la computacion distribuida dest
 1. la parte de funcional hace alucion a las funciones de calculo computacional
 2. mientras la programacion imperativa toma los programas como secuencias de comandos la programacion funcional los toma como la evaluacion de funciones matematicas, las funciones recibe entradas y salidas evitando efectos secundarios
 
-## funcional ves estructurada
+## funcional vs estructurada
 
 - una se enfoca en que la otra en como
 
@@ -53,7 +53,7 @@ el auge de los sistemas concurrentes, big data y la computacion distribuida dest
 - tranformacion de datos con funciones, el otro tiene objetos y estados mutables
 - inmutable uno mutable el otro
 - efectos secundarios evitados, en el otro no
-- modularida meidante compocicion de funciones, el otro clases y herencias
+- modularidad mediante compocicion de funciones, el otro clases y herencias
 - concurrencia seguridad natural con datos inmutables, la otra con sincronizacion
 
 ## principios fundamentales
@@ -78,7 +78,7 @@ console.log(copy) = {a: 1, b: 3}
 
 1. los valores de retorno de la funcion son identicos para argumentos identicos ( sin variacion con variables estaticas, locales, no locales, argumentos de referencia o flujos de entrada, transparencia refernecial).
 
-2. la fucncion no tiene efectos secundarios( sin mutacion de valriables estaticas, locales, variables estaticas locales, no locales, etc).
+2. la funcion no tiene efectos secundarios( sin mutacion de variables estaticas, locales, variables estaticas locales, no locales, etc).
 
 ejemplo
 
@@ -119,6 +119,8 @@ console.log(applyFunction(double, 5)); // 10
 ```
 
 ### transparencia referencial
+
+una expresion devuelve siempre el mismo resultado a una misma entrada 
 
 ## ventajas
 
